@@ -1,7 +1,6 @@
 import React from "react";
-import HomePage from './pages/homepage/homepage.component';
-import SignInPage from './pages/sign-in-page/sign-in-page.component';
-
+//import HomePage from './pages/homepage/homepage.component';
+import SignInPage from "./pages/sign-in-page/sign-in-page.component";
 
 const App = () => {
   return (
@@ -9,8 +8,7 @@ const App = () => {
       <SignInPage />
       {/*<HomePage /> */}
     </div>
-  )
+  );
 };
-
 
 export default App;
