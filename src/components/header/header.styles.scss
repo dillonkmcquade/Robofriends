@@ -1,0 +1,33 @@
+header {
+    max-height: 100px;
+    padding: 10px;
+    background-color: rgb(91, 91, 241);
+    display: flex;
+    justify-content: space-around;
+
+    hgroup {
+        color: white;
+        display: flex;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.5;
+        }
+         h6 {
+             padding: 10px;
+         }
+    }
+
+    nav {
+        float: top;
+        display: flex;
+
+        p {
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+}

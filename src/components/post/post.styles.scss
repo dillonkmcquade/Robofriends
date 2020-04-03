@@ -1,0 +1,20 @@
+.post {
+    background-color: rgb(77, 77, 179);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 75%;
+
+    a {
+        text-decoration: none;
+        color: gray;
+        &:hover {
+            opacity: .5;
+        }
+    }
+    
+    span {
+        color: gray;
+    }
+}
+

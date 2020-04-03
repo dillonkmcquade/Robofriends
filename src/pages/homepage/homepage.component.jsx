@@ -1,41 +1,33 @@
-import React, { useState, useEffect } from "react";
-import Cardlist from '../../components/Cardlist';
-import SearchBox from "../../components/SearchBox.js";
-import ErrorBoundary from "../../components/ErrorBoundary.js";
-import Scroll from "../../components/Scroll.js";
+import React, { useEffect, useState } from "react";
+import Header from "../../components/header/header.js";
+import Explore from "../../components/explore/explore";
+import {
+	firestore,
+	convertCollectionsSnapshotToMap
+} from "../../firebase/firebase";
+import "./homepage.styles.scss";
 
 const HomePage = () => {
-  const [robots, setRobots] = useState([]);
-  const [searchField, setSearchField] = useState("");
+	const [posts, setPosts] = useState([]);
+	useEffect(() => {
+		const collectionRef = firestore.collection("posts");
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => response.json())
-      .then(users => {
-        setRobots({ robots: users });
-      });
-  });
+		collectionRef
+			.get()
+			.then(snapshot => {
+				const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+			  setPosts(collectionsMap);
+				console.log(collectionsMap);
+			})
+			.catch(error => console.log(error.message));
+	}, [setPosts]);
 
-  const filteredRobots = robots.filter(robot => {
-    return robot.name.toLowerCase().includes(searchField.toLowerCase());
-  });
-
-
-  if (!robots.length) {
-    return <h1>Loading..</h1>;
-  } else {
-    return (
-      <div className="tc homepage-container">
-        <h1 className="f1">RoboFriends</h1>
-        <SearchBox searchChange={event => setSearchField(event.target.value)} />
-        <Scroll>
-          <ErrorBoundary>
-            <Cardlist robots={filteredRobots} />
-          </ErrorBoundary>
-        </Scroll>
-      </div>
-    );
-  }
+	return (
+		<div className="homepage-container">
+			<Header />
+			<Explore posts={posts} />
+		</div>
+	);
 };
 
 export default HomePage;
