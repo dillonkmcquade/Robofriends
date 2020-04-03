@@ -3,8 +3,10 @@ import "firebase/firestore";
 import "firebase/analytics";
 import "firebase/auth";
 
+require('dotenv').config();
+
 var firebaseConfig = {
-	apiKey: "AIzaSyAAZlZzrYpzsWjUcFSCU4QhHGTsFkC1yog",
+	apiKey: 'AIzaSyAAZlZzrYpzsWjUcFSCU4QhHGTsFkC1yog',
 	authDomain: "open-source-ideas-ab9e2.firebaseapp.com",
 	databaseURL: "https://open-source-ideas-ab9e2.firebaseio.com",
 	projectId: "open-source-ideas-ab9e2",

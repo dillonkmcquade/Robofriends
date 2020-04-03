@@ -21,13 +21,18 @@ header {
         float: top;
         display: flex;
 
-        p {
+        a, p {
+            text-decoration: none;
             padding: 10px;
             color: white;
             cursor: pointer;
             &:hover {
                 opacity: 0.5;
             }
+        }
+
+        a {
+            margin: 16px;
         }
     }
 }

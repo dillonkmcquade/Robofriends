@@ -9,10 +9,10 @@ const RegisterForm = () => {
 		email: "",
 		password: "",
 		confirmPassword: ""
-  });
-  
-  const { password, confirmPassword, userName, email } = credentials;
-  
+	});
+
+	const { password, confirmPassword, userName, email } = credentials;
+
 	const handleRegister = async event => {
 		event.preventDefault();
 		if (password !== confirmPassword) {
@@ -43,28 +43,41 @@ const RegisterForm = () => {
 				<input
 					type="text"
 					placeholder="Username"
-					onChange={event => setCredentials({ ...credentials, username: event.target.value })}
+					onChange={event =>
+						setCredentials({ ...credentials, username: event.target.value })
+					}
 					className="custom-input"
+					required
 				/>
 				<input
 					type="text"
 					placeholder="E-mail address"
 					className="custom-input"
-					onChange={event => setCredentials({ ...credentials, email: event.target.value })}
+					onChange={event =>
+						setCredentials({ ...credentials, email: event.target.value })
+					}
+					required
 				/>
 				<input
 					type="password"
 					placeholder="Password"
 					className="custom-input"
-					onChange={event => setCredentials({ ...credentials, password: event.target.value })}
+					onChange={event =>
+						setCredentials({ ...credentials, password: event.target.value })
+					}
+					required
 				/>
 				<input
 					type="password"
 					placeholder="Confirm Password"
 					className="custom-input"
 					onChange={event =>
-						setCredentials({ ...credentials, confirmPassword: event.target.value })
+						setCredentials({
+							...credentials,
+							confirmPassword: event.target.value
+						})
 					}
+					required
 				/>
 				<Button type="submit" variant="contained" color="primary">
 					Sign Up

@@ -3,12 +3,29 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  
+  .custom-input {
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    background-color: lightgray;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    &:hover{
+        border: 2px solid royalblue;
+    }
+    &:active{
+        border: 2px solid royalblue;
+    }
+  }
 
-	hgroup {
+	.sign-in-title {
 		color: white;
 		display: flex;
-		cursor: pointer;
+    cursor: pointer;
+    padding-left: 10px;
 		&:hover {
 			opacity: 0.5;
 		}

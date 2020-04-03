@@ -1,31 +1,16 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { signInWithGoogle } from "../../firebase/firebase";
 import {auth} from '../../firebase/firebase';
 import "./sign-in.styles.scss";
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		"& > *": {
-			margin: theme.spacing(1),
-			width: 200
-		},
-		"& label.Mui-focused": {
-			color: "gray"
-		},
-		"& .MuiOutlinedInput-root": {
-			"& fieldset": {
-				border: "2px solid white"
-			},
-			"&.Mui-focused fieldset": {
-				borderColor: "white"
-			}
-		}
-	},
-	input: {
-		color: "white"
-	}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(2)
+    },
+  },
 }));
 
 const SignIn = ({ setCurrentUser }) => {
@@ -66,21 +51,23 @@ const SignIn = ({ setCurrentUser }) => {
 	const classes = useStyles();
 	return (
 		<div className="sign-in-container">
-			<hgroup>
+			<hgroup className='sign-in-title'>
 				<h1>OSI</h1>
 				<h6>Open Source Ideas</h6>
 			</hgroup>
-			<form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
-				<TextField
-					id="outlined-basic"
-					label="E-mail"
-					variant="outlined"
+			<form className={classes.root} onSubmit={handleSubmit} >
+				<input
+          type="text"
+          className="custom-input"
+          placeholder='Email'
+          required
 					onChange={event => setCredentials({ ...credentials, email: event.target.value })}
 				/>
-				<TextField
-					id="outlined-basic"
-					label="Password"
-					variant="outlined"
+				<input
+          type="text"
+          className="custom-input"
+          placeholder='password'
+          required
 					onChange={event => setCredentials({ ...credentials, password: event.target.value })}
 				/>
 				<Button type="submit" variant="contained" color="primary">
@@ -88,7 +75,7 @@ const SignIn = ({ setCurrentUser }) => {
 				</Button>
 				<Button
 					variant="contained"
-					color="Primary"
+					color="primary"
 					onClick={() => handleSignIn()}
 				>
 					Sign in with Google

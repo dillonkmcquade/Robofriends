@@ -1,36 +1,59 @@
-import React, { useState, useEffect } from "react";
-import HomePage from "./pages/homepage/homepage.component";
-import SignInPage from "./pages/sign-in-page/sign-in-page.component";
-import {auth, createUserProfileDocument} from './firebase/firebase';
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { auth, createUserProfileDocument } from "./firebase/firebase";
+import LazySpinner from "./components/lazySpinner/lazy-spinner.component";
+
+const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
+const SignInPage = lazy(() =>
+	import("./pages/sign-in-page/sign-in-page.component")
+);
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+	const [currentUser, setCurrentUser] = useState(undefined);
 
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-      return () => {
-        unsubscribeFromAuth();
-      };
-    });
-  }, [setCurrentUser]);
+	useEffect(() => {
+		const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+			if (userAuth) {
+				const userRef = await createUserProfileDocument(userAuth);
+
+				userRef.onSnapshot(snapShot => {
+					setCurrentUser({
+						id: snapShot.id,
+						...snapShot.data()
+					});
+				});
+			} else {
+				setCurrentUser(userAuth);
+			}
+			return () => {
+				unsubscribeFromAuth();
+			};
+		});
+	}, [setCurrentUser]);
 	return (
 		<div>
-			{!currentUser ? (
-				<SignInPage setCurrentUser={setCurrentUser} />
-			) : (
-				<HomePage />
-			)}
+			<Switch>
+				<Suspense fallback={<LazySpinner />}>
+					<Route
+						exact
+						path="/"
+						render={() =>
+							currentUser ? <Redirect to="/home" /> : <SignInPage />
+						}
+					/>
+					<Route
+						exact
+						path="/home"
+						render={() =>
+							!currentUser ? (
+								<Redirect to="/" />
+							) : (
+								<HomePage setCurrentUser={setCurrentUser} />
+							)
+						}
+					/>
+				</Suspense>
+			</Switch>
 		</div>
 	);
 };
