@@ -5,7 +5,7 @@ import { auth } from "../../firebase/firebase";
 
 const Header = ({ match }) => {
 	return (
-		<header>
+		<header className='header'>
 			<hgroup>
 				<h1>OSI</h1>
 				<h6>Open Source Ideas</h6>
